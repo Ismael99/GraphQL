@@ -3,6 +3,8 @@ const express = require("express");
 const {graphqlHTTP} = require("express-graphql");
 //Instancia de express
 const app = express();
+//Exportamos el schema
+const schema = require('./schemas/schema');
 
 //Rutas
 app.get("/", (req, res) => {
@@ -12,7 +14,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/graphql", graphqlHTTP({ 
-
+    graphiql: true,
+    schema: schema,
 }));
 
 //Iniciar el servidor y escuchar el puerto 3000
