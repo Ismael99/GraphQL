@@ -1,10 +1,20 @@
 //Para crear un servidor para desarrollo
-const express = require("express");
-const {graphqlHTTP} = require("express-graphql");
+import express from "express";
+
+//Para mostrar el graphiql
+import {graphqlHTTP} from "express-graphql";
+
+//Importamos el schema
+import schema from './schemas/schema';
+
+//Importar la conexion a la base de datos
+import {connect} from './db/db_connection';
+
 //Instancia de express
 const app = express();
-//Exportamos el schema
-const schema = require('./schemas/schema');
+
+//se ejecuta la conexion
+connect();
 
 //Rutas
 app.get("/", (req, res) => {
@@ -12,6 +22,7 @@ app.get("/", (req, res) => {
         message: 'Welcome to the API',
     })
 });
+
 
 app.use("/graphql", graphqlHTTP({ 
     graphiql: true,
