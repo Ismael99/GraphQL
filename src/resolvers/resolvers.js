@@ -26,6 +26,13 @@ const resolvers = {
             await newUser.save();
             //Retornamos el objeto recien creado
             return newUser;
+        },
+        deleteUser: async (_, {_id}) =>{
+            return await User.findByIdAndDelete(_id);
+        },
+        updateUser: async (_, {_id, input}) =>{
+            //{new: true} para que devuelva el registro despues de ser modificado y no antes de.
+            return await User.findByIdAndUpdate(_id, input , {new: true});
         }
     }
 }
